@@ -1,0 +1,21 @@
+---
+#### uninstall splunk ####
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+  tasks:
+
+    - name: stop splunk
+      command: "/opt/splunk/bin/splunk stop"
+      become: yes
+      become_method: sudo
+      become_user: splunk
+      ignore_errors: yes
+
+    - name: Remove splunk
+      command: "rm -rf /opt/splunk"
+      become: yes
+      become_method: sudo
+      become_user: splunk
+      ignore_errors: yes
+

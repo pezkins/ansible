@@ -1,0 +1,69 @@
+---
+#### TEST TEST TEST ####
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+
+  vars_files:
+  - /etc/ansible/vars/base_vars.yml  
+
+  tasks:
+
+    - copy:
+        src: /etc/ansible/files/serverclass.conf
+        dest: /opt/splunk/etc/system/local/
+        owner: splunk
+        group: splunk
+        mode: 0755
+
+    - name: applying whitelist to all_indexer serverclass
+      vars:
+        hostnames: "{{ groups.indexers }}"
+      lineinfile:
+        destfile: /opt/splunk/etc/system/local/serverclass.conf
+        insertafter: '\[serverClass:all_indexer\]'
+        line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+        state: present
+      with_indexed_items: "{{ hostnames }}"
+      become: true
+
+    - name: applying whitelist to all_indexer serverclass
+      vars:
+        hostnames: "{{ groups.heavy_forwarders }}"
+      lineinfile:
+        destfile: /opt/splunk/etc/system/local/serverclass.conf
+        insertafter: '\[serverClass:Heavy_forwarders\]'
+        line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+        state: present
+      with_indexed_items: "{{ hostnames }}"
+      become: true
+
+    - name: applying whitelist to all_indexer serverclass
+      vars:
+        hostnames: "{{ groups.forwarders }}"
+      lineinfile:
+        destfile: /opt/splunk/etc/system/local/serverclass.conf
+        insertafter: '\[serverClass:all_forwarders\]'
+        line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+        state: present
+      with_indexed_items: "{{ hostnames }}"
+      become: true
+
+    - name: applying whitelist to all_indexer serverclass
+      vars:
+        hostnames: "{{ groups.universal_forwarders }}"
+      lineinfile:
+        destfile: /opt/splunk/etc/system/local/serverclass.conf
+        insertafter: '\[serverClass:Universal_forwarders\]'
+        line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+        state: present
+      with_indexed_items: "{{ hostnames }}"
+      become: true
+
+    - name: full splunk clients tag remove
+      replace:
+        destfile: /opt/splunk/etc/system/local/serverclass.conf
+        regexp: '\#ansible full_clients'
+        replace: ''
+      become: true
+      

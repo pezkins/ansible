@@ -1,0 +1,12 @@
+---
+#installing splunk
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+  tasks:
+
+    - name: install splunk
+      yum:
+        name: /tmp/splunk-6.5.3-36937ad027d4-linux-2.6-x86_64.rpm
+        state: present
+        

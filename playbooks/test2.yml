@@ -1,0 +1,9 @@
+---
+#### testing out the git pull function ####
+- name: deploying random apps to test our roles function
+  hosts: 
+    - universal_forwarders
+  vars_files:
+    - /etc/ansible/vars/base_vars.yml
+  roles:
+    - indexers

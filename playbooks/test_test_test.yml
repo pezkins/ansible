@@ -1,0 +1,12 @@
+#### deploying apps to test out roles ####
+- name: create directory tree
+  file: 
+    path: /opt/splunk/etc/apps/{{ item }}
+    state: directory
+    owner: splunk
+    group: splunk
+    mode: 0755
+    recurse: yes
+  with_items:
+    - cdm_all_deploymentclient/local/
+    - cdm_all_deploymentclient/metadata/

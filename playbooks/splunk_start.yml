@@ -1,0 +1,17 @@
+---
+#starting splunk
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+  tasks:
+
+    - name: accept splunk license
+      command: "/opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt"
+      become: yes
+      become_method: sudo
+      become_user: splunk
+      ignore_errors: yes
+
+    - name: enable boot-start splunk service
+      command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
+      ignore_errors: yes

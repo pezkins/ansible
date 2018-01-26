@@ -1,0 +1,9 @@
+
+http_port: 8443
+management_port: 8089
+ssl_password: password
+ssl_version: "tls1.2"
+cipher_suite: AES256-GCM-SHA384
+deployment_server: 127.0.0.1
+license_master_ip: 10.128.193.22
+indexer_ip: 127.0.0.1

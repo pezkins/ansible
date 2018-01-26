@@ -1,0 +1,17 @@
+# BASE SETTINGS 
+# Splunk Version 6.5.3
+
+#Conventional port used for Splunk data received unencrypted
+#[splunktcp://9997]
+
+#Conventional port used to receive data over SSL and CDM solution standard
+[splunktcp-ssl://9996]
+
+# SSL SETTINGS
+[SSL]
+serverCert = $SPLUNK_HOME/etc/auth/server.pem
+sslPassword = {{ ssl_password }}
+sslVersions = {{ ssl_version }}
+cipherSuite = {{ cipher_suite }}
+#Default Splunk setting
+requireClientCert = false

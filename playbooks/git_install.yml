@@ -1,0 +1,26 @@
+---
+#### install git ####
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+
+  tasks:
+    - name: create directory for git repo
+      file:
+        path: /tmp/git/
+        state: directory
+        mode: 0777
+      
+    - name: Install git
+      yum:
+        name: git
+        state: present
+
+    - user:
+        name: root
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+
+    - name: command to git initialize
+      command: "cd /tmp/git && git init"

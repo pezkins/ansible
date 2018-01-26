@@ -1,0 +1,33 @@
+# BASE SETTINGS
+
+#   Version 6.5.3
+#
+[tcpout]
+defaultGroup = primary_indexers
+indexAndForward = false
+#This setting ensures that all data from all indexes (internal and external) are forwarded
+forwardedindex.filter.disable = true
+
+[tcpout:primary_indexers]
+#Sending to port 9996 which is a CDM solution standard and a Splunk convention for sending Splunk SSL data
+server = {{ indexer_ip }}:9996
+#Setting indexer acknowledgement bit to true
+useACK = true
+#This is the default value, but setting it explicitly here
+autoLB = true
+#SSL Settings
+sslVerifyServerCert = false
+sslPassword = password
+clientCert = $SPLUNK_HOME/etc/auth/server.pem
+sslVersions = "tls1.2"
+cipherSuite = AES256-GCM-SHA384
+sslRootCAPath = $SPLUNK_HOME/etc/auth/ca.pem
+sslCertPath = $SPLUNK_HOME/etc/auth/server.pem
+
+#Settings for forwarding data to syslog.  
+#[syslog:syslog-out1]
+#disabled = false
+#server = X.X.X.X:9099
+#type = tcp
+#priority = <34>
+#timestampformat = %b %e %H:%M:%S
