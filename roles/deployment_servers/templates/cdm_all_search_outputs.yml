@@ -1,0 +1,42 @@
+---
+#### Deploy cdm_all_search_outputs  ####
+- hosts: universal_forwarders
+  connection: ssh
+  gather_facts: no
+
+  vars_files:
+  - /etc/ansible/vars/base_vars.yml
+      
+  tasks:
+
+    - name: create directory tree
+      file: 
+        path: /opt/splunk/etc/apps/{{ item }}
+        state: directory
+        owner: splunk
+        group: splunk
+        mode: 0755
+        recurse: yes
+      with_items:
+        - cdm_all_search_outputs/local/
+        - cdm_all_search_outputs/metadata/
+
+    - name: create base configurations
+      template: 
+        src: '{{ item }}' 
+        dest: /opt/splunk/etc/apps/cdm_all_search_outputs/local/{{ item | basename | regex_replace('\.j2','') }}
+        group: splunk
+        owner: splunk
+        mode: 0755
+      with_fileglob:
+        - /etc/ansible/files/cdm_all_search_outputs/local/*
+
+    - name: create base configurations
+      template: 
+        src: '{{ item }}' 
+        dest: /opt/splunk/etc/apps/cdm_all_search_outputs/metadata/{{ item | basename | regex_replace('\.j2','') }}
+        group: splunk
+        owner: splunk
+        mode: 0755 
+      with_fileglob:
+        - /etc/ansible/files/cdm_all_search_outputs/metadata/*

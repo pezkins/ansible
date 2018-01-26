@@ -1,0 +1,288 @@
+- name: create directory tree
+  file: 
+    path: /opt/splunk/etc/deployment-apps/{{ item }}
+    state: directory
+    owner: splunk
+    group: splunk
+    mode: 0755
+    recurse: yes
+  with_items:
+    - cdm_all_indexes/local/
+    - cdm_all_indexes/metadata/
+    - cdm_all_indexer_base/local/
+    - cdm_all_indexer_base/metadata/
+    - cdm_indexer_volume_indexes/local/
+    - cdm_indexer_volume_indexes/metadata
+    - cdm_full_license_server/local/
+    - cdm_full_license_server/metadata/
+    - cdm_all_forwarder_base/local/
+    - cdm_all_forwarder_base/metadata/
+    - cdm_all_forwarder_outputs/local/
+    - cdm_all_forwarder_outputs/metadata/
+    - cdm_forwarder_volume_indexes/local/
+    - cdm_forwarder_volume_indexes/metadata/
+    - cdm_all_search_base/local/
+    - cdm_all_search_base/metadata/
+    - cdm_all_search_outputs/local/
+    - cdm_all_search_outputs/metadata/
+    - cdm_search_volume_indexes/local/
+    - cdm_search_volume_indexes/metadata/
+
+- name: copying over serverclasses file
+  copy:
+    src: /etc/ansible/roles/deployment_servers/files/serverclass.conf
+    dest: /opt/splunk/etc/system/local/
+    owner: splunk
+    group: splunk
+    mode: 0755
+
+- name: applying whitelist to all_indexer serverclass
+  vars:
+    hostnames: "{{ groups.indexers }}"
+  lineinfile:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    insertafter: '\[serverClass:all_indexer\]'
+    line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+    state: present
+  with_indexed_items: "{{ hostnames }}"
+  become: true
+
+- name: applying whitelist to all_indexer serverclass
+  vars:
+    hostnames: "{{ groups.heavy_forwarders }}"
+  lineinfile:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    insertafter: '\[serverClass:Heavy_forwarders\]'
+    line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+    state: present
+  with_indexed_items: "{{ hostnames }}"
+  become: true
+
+- name: applying whitelist to all_indexer serverclass
+  vars:
+    hostnames: "{{ groups.forwarders }}"
+  lineinfile:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    insertafter: '\[serverClass:all_forwarders\]'
+    line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+    state: present
+  with_indexed_items: "{{ hostnames }}"
+  become: true
+
+- name: applying whitelist to all_indexer serverclass
+  vars:
+    hostnames: "{{ groups.universal_forwarders }}"
+  lineinfile:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    insertafter: '\[serverClass:Universal_forwarders\]'
+    line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+    state: present
+  with_indexed_items: "{{ hostnames }}"
+  become: true
+
+- name: full splunk clients tag remove
+  replace:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    regexp: '\#ansible full_clients'
+    replace: ''
+  become: true
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_search_outputs/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_search_outputs/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_search_outputs/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_search_outputs/metadata/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_search_base/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_search_base/local/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_search_base/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_search_base/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_search_volume_indexes/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/files/cdm_search_volume_indexes/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_search_volume_indexes/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_search_volume_indexes/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_indexer_base/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_all_indexer_base/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_indexer_base/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_all_indexer_base/metadata/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_indexer_volume_indexes/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_indexer_volume_indexes/local/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_indexer_volume_indexes/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_indexer_volume_indexes/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_forwarder_volume_indexes/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/files/cdm_forwarder_volume_indexes/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_forwarder_volume_indexes/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_forwarder_volume_indexes/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_forwarder_outputs/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_forwarder_outputs/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_forwarder_outputs/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_forwarder_outputs/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_forwarder_base/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_forwarder_base/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_forwarder_base/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/files/cdm_all_forwarder_base/metadata/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_full_license_server/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_full_license_server/local/*
+
+- name: create base configurations
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_full_license_server/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_full_license_server/metadata/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}' 
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_indexes/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_all_indexes/local/*
+
+- name: create base configurations
+  template: 
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/deployment-apps/cdm_all_indexes/metadata/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755 
+  with_fileglob:
+    - /etc/ansible/roles/indexers/templates/cdm_all_indexes/metadata/*

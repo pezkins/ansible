@@ -1,9 +1,25 @@
 ---
 #### testing out the git pull function ####
-- name: deploying random apps to test our roles function
-  hosts: 
-    - universal_forwarders
+- name: Install splunk
+  hosts:
+    - splunk_servers
   vars_files:
     - /etc/ansible/vars/base_vars.yml
   roles:
-    - indexers
+    - install_splunk
+
+- name: configure deployment server
+  hosts: 
+    - deployment_servers
+  vars_files:
+    - /etc/ansible/vars/base_vars.yml
+  roles:
+    - deployment_servers
+
+- name: configure deployment clients
+  hosts:
+    - deployment_clients
+  var_files:
+    - /etc/ansible/vars/base_vars.yml
+  roles:
+    - deployment_client
