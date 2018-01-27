@@ -1,0 +1,8 @@
+- name: chown all to splunk
+  command: "chown -R splunk:splunk /opt/splunk/"
+
+- name: restarting splunk
+  command: "/opt/splunk/bin/splunk restart"
+  become: yes
+  become_method: sudo
+  become_user: splunk

@@ -36,7 +36,7 @@
     group: splunk
     mode: 0755
 
-- name: applying whitelist to all_indexer serverclass
+- name: applying whitelist to indexers serverclass
   vars:
     hostnames: "{{ groups.indexers }}"
   lineinfile:
@@ -47,7 +47,18 @@
   with_indexed_items: "{{ hostnames }}"
   become: true
 
-- name: applying whitelist to all_indexer serverclass
+- name: applying whitelist to searchhead serverclass
+  vars:
+    hostnames: "{{ groups.searchhead }}"
+  lineinfile:
+    destfile: /opt/splunk/etc/system/local/serverclass.conf
+    insertafter: '\[serverClass:all_search\]'
+    line: "whitelist.{{ item.0 }} = {{ item.1 }} #ansible full_clients"
+    state: present
+  with_indexed_items: "{{ hostnames }}"
+  become: true
+
+- name: applying whitelist to heavy_forwarders serverclass
   vars:
     hostnames: "{{ groups.heavy_forwarders }}"
   lineinfile:
@@ -58,7 +69,7 @@
   with_indexed_items: "{{ hostnames }}"
   become: true
 
-- name: applying whitelist to all_indexer serverclass
+- name: applying whitelist to all_forwarders serverclass
   vars:
     hostnames: "{{ groups.forwarders }}"
   lineinfile:
@@ -69,7 +80,7 @@
   with_indexed_items: "{{ hostnames }}"
   become: true
 
-- name: applying whitelist to all_indexer serverclass
+- name: applying whitelist to universal_forwards serverclass
   vars:
     hostnames: "{{ groups.universal_forwarders }}"
   lineinfile:
@@ -95,7 +106,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/files/cdm_all_search_outputs/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_search_outputs/local/*
 
 - name: create base configurations
   template: 
@@ -105,7 +116,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_all_search_outputs/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_search_outputs/metadata/*
 
 - name: create base configurations
   template:
@@ -115,7 +126,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_all_search_base/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_search_base/local/*
 
 - name: create base configurations
   template:
@@ -125,7 +136,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_all_search_base/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_search_base/metadata/*
 
 - name: create base configurations
   template: 
@@ -135,7 +146,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/files/cdm_search_volume_indexes/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_search_volume_indexes/local/*
 
 - name: create base configurations
   template: 
@@ -145,7 +156,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_search_volume_indexes/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_search_volume_indexes/metadata/*
 
 - name: create base configurations
   template: 
@@ -155,7 +166,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_all_indexer_base/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_indexer_base/local/*
 
 - name: create base configurations
   template: 
@@ -165,7 +176,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_all_indexer_base/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_indexer_base/metadata/*
 
 - name: create base configurations
   template:
@@ -175,7 +186,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_indexer_volume_indexes/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_indexer_volume_indexes/local/*
 
 - name: create base configurations
   template:
@@ -185,7 +196,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_indexer_volume_indexes/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_indexer_volume_indexes/metadata/*
 
 - name: create base configurations
   template: 
@@ -195,7 +206,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/files/cdm_forwarder_volume_indexes/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_forwarder_volume_indexes/local/*
 
 - name: create base configurations
   template: 
@@ -205,7 +216,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_forwarder_volume_indexes/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_forwarder_volume_indexes/metadata/*
 
 - name: create base configurations
   template: 
@@ -215,7 +226,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/files/cdm_all_forwarder_outputs/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_forwarder_outputs/local/*
 
 - name: create base configurations
   template: 
@@ -225,7 +236,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_all_forwarder_outputs/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_forwarder_outputs/metadata/*
 
 - name: create base configurations
   template: 
@@ -235,7 +246,7 @@
     owner: splunk
     mode: 0755
   with_fileglob:
-    - /etc/ansible/files/cdm_all_forwarder_base/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_forwarder_base/local/*
 
 - name: create base configurations
   template: 
@@ -245,7 +256,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/files/cdm_all_forwarder_base/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_forwarder_base/metadata/*
 
 - name: create base configurations
   template:
@@ -255,7 +266,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_full_license_server/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_full_license_server/local/*
 
 - name: create base configurations
   template:
@@ -265,7 +276,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_full_license_server/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_full_license_server/metadata/*
 
 - name: create base configurations
   template: 
@@ -275,7 +286,7 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_all_indexes/local/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_indexes/local/*
 
 - name: create base configurations
   template: 
@@ -285,4 +296,14 @@
     owner: splunk
     mode: 0755 
   with_fileglob:
-    - /etc/ansible/roles/indexers/templates/cdm_all_indexes/metadata/*
+    - /etc/ansible/roles/deployment_servers/templates/cdm_all_indexes/metadata/*
+
+- name: setting web.conf 
+  template:
+    src: '{{ item }}'
+    dest: /opt/splunk/etc/system/local/{{ item | basename | regex_replace('\.j2','') }}
+    group: splunk
+    owner: splunk
+    mode: 0755
+  with_items:
+    - /etc/ansible/roles/deployment_servers/templates/web.conf.j2

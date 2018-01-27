@@ -1,25 +1,38 @@
 ---
-#### testing out the git pull function ####
-- name: Install splunk
+- name: installing splunk
   hosts:
     - splunk_servers
+  connection: ssh
+  gather_facts: no
   vars_files:
     - /etc/ansible/vars/base_vars.yml
   roles:
     - install_splunk
 
-- name: configure deployment server
+- name: adding deployment apps and setting up serverclasses
   hosts: 
     - deployment_servers
+  connection: ssh
+  gather_facts: no
   vars_files:
     - /etc/ansible/vars/base_vars.yml
   roles:
     - deployment_servers
 
-- name: configure deployment clients
+- name: setting up deployment clients
   hosts:
     - deployment_clients
-  var_files:
+  connection: ssh
+  gather_facts: no
+  vars_files:
     - /etc/ansible/vars/base_vars.yml
   roles:
-    - deployment_client
+    - deployment_clients
+
+- name: restarting splunk on all instances
+  hosts:
+    - splunk_servers
+  connection: ssh
+  gather_facts: no
+  roles:
+    - restart_splunk

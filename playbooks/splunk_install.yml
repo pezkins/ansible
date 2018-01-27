@@ -1,6 +1,6 @@
 ---
 #installing splunk
-- hosts: universal_forwarders
+- hosts: splunk_servers
   connection: ssh
   gather_facts: no
   tasks:

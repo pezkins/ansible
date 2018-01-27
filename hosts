@@ -2,10 +2,10 @@
 10.128.193.17
 10.128.193.18
 10.128.193.20
-10.128.193.19
+localhost
 
 [searchhead]
-10.128.193.19
+10.128.193.20
 
 [indexers]
 10.128.193.18
@@ -18,9 +18,9 @@
 [universal_forwarders]
 
 [deployment_servers]
-localhost
+10.128.193.19
 
 [deployment_clients]
 10.128.193.17
 10.128.193.18
-10.128.193.19
+10.128.193.20
