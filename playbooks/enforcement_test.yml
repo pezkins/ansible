@@ -16,10 +16,10 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
-- name: testing our file tree
-  find:
-    paths: /opt/splunk/
-    recurse: yes
+    - name: testing our file tree
+      find:
+        paths: /opt/splunk/
+        recurse: yes
 
 #    - name: stats of directory
 #      stat:
