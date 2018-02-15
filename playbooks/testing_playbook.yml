@@ -1,0 +1,8 @@
+---
+- name: installing splunk
+  hosts:
+    - deployment_servers
+  connection: ssh
+  gather_facts: no
+  roles:
+    - test_role
