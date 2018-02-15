@@ -20,7 +20,7 @@
       stat:
         path: /opt/{{ splunk_instance }}/
       register: results
-      with_items:
+#      with_items:
 #        - 
 #        - etc/
 #       - etc/apps/
