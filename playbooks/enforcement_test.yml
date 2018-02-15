@@ -24,10 +24,9 @@
     - name: ensure ownership and permissions for splunk directories
       file: 
         path: /opt/{{ splunk_instance }}/
-        state: directory
+        state: touch
         owner: splunk
         group: splunk
-        state: touch
         mode: 0755
         recurse: yes
 #      when: group != 'splunk'
