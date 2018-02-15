@@ -1,6 +1,13 @@
 - name: chown all to splunk
   command: "chown -R splunk:splunk /opt/splunk/"
 
+- name: stop splunk
+  command: "/opt/splunk/bin/splunk edit user admin -password T02B-admin* -auth admin:changeme"
+  become: yes
+  become_method: sudo
+  become_user: splunk
+  ignore_errors: yes
+
 - name: restarting splunk
   command: "/opt/splunk/bin/splunk restart"
   become: yes

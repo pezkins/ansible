@@ -5,7 +5,7 @@
 sslVersions = {{ ssl_version }}
 #Comma-separated list of SSL versions to support for outgoing HTTP connections from splunkd.  This includes distributed search, deployment client, etc.
 sslVersionsForClient = {{ ssl_version }}
-cipherSuite = {{ cipher_suite }} 
+#cipherSuite = {{ cipher_suite }} 
 sslRootCAPath = $SPLUNK_HOME/etc/auth/cacert.pem
 serverCert = $SPLUNK_HOME/etc/auth/server.pem
 

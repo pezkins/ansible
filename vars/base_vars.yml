@@ -2,9 +2,10 @@
 http_port: 8443
 management_port: 8089
 ssl_password: password
-ssl_version: "tls1.2"
+ssl_version: .*
 cipher_suite: AES256-GCM-SHA384
 deployment_server: 10.128.193.19
 license_master_ip: 10.128.193.56
 indexer_ip: 10.128.193.18
 web_port: 3389
+deployment_client_homephone_interval: 60

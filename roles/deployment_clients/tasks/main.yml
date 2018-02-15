@@ -1,4 +1,4 @@
-- name: create directory tree
+- name: create deployment client directories
   file: 
     path: /opt/splunk/etc/apps/{{ item }}
     state: directory
@@ -10,7 +10,7 @@
     - cdm_all_deploymentclient/local/
     - cdm_all_deploymentclient/metadata/
 
-- name: create base configurations
+- name: Populating local directory with template
   template:
     src: '{{ item }}' 
     dest: /opt/splunk/etc/apps/cdm_all_deploymentclient/local/{{ item | basename | regex_replace('\.j2','') }}
@@ -20,12 +20,12 @@
   with_fileglob:
     - /etc/ansible/roles/deployment_clients/templates/cdm_all_deploymentclient/local/*
 
-- name: create base configurations
+- name: populating metadata directory with template
   template: 
     src: '{{ item }}' 
     dest: /opt/splunk/etc/apps/cdm_all_deploymentclient/metadata/{{ item | basename | regex_replace('\.j2','') }}
     group: splunk
     owner: splunk
-    mode: 0755 
+    mode: 0755
   with_fileglob:
     - /etc/ansible/roles/deployment_clients/templates/cdm_all_deploymentclient/metadata/*

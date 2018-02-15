@@ -4,8 +4,6 @@
 #
 [tcpout]
 defaultGroup = primary_indexers
-indexAndForward = false
-#This setting ensures that all data from all indexes (internal and external) are forwarded
 forwardedindex.filter.disable = true
 
 [tcpout:primary_indexers]
@@ -17,10 +15,10 @@ useACK = true
 autoLB = true
 #SSL Settings
 sslVerifyServerCert = false
-sslPassword = password
+sslPassword = {{ ssl_password }}
 clientCert = $SPLUNK_HOME/etc/auth/server.pem
-sslVersions = "tls1.2"
-cipherSuite = AES256-GCM-SHA384
+sslVersions = {{ ssl_version }}
+#cipherSuite = {{ cipher_suite }}
 sslRootCAPath = $SPLUNK_HOME/etc/auth/ca.pem
 sslCertPath = $SPLUNK_HOME/etc/auth/server.pem
 

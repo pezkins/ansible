@@ -1,0 +1,36 @@
+---
+- name: enforceing deployment_client app
+  hosts:
+    - deployment_clients
+  connection: ssh
+  gather_facts: no
+  vars_files:
+    - /etc/ansible/vars/deployment_client_vars.yml
+  roles:
+    - deployment_clients
+
+- hosts: deployment_servers
+  connection: ssh
+  gather_facts: no
+  vars_files:
+    - /etc/ansible/vars/deployment_client_vars.yml
+  tasks:
+    
+    - name: ensure ownership and permissions for splunk directories
+      file: 
+        path: /opt/{{ splunk_instance }}/
+        state: directory
+        owner: splunk
+        group: splunk
+        mode: 0755
+        recurse: yes
+
+    - name: enable boot-start splunk service
+      command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
+      ignore_errors: yes
+
+#### testing ######
+
+#
+#    - name: changeing logfile to dynamically add date and hostname
+#      command: mv /var/log/ansible/ansiblelog.log /var/log/ansible/ansible_{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S')}}.log

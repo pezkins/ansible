@@ -16,3 +16,7 @@
       command: "rm -rf /opt/splunk"
       ignore_errors: yes
 
+    - name: yum remove splunk
+      yum:
+        name: splunk
+        state: absent
