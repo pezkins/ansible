@@ -16,6 +16,16 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
+- name: testing our file tree
+  find:
+    paths: /opt/splunk/
+    recurse: yes
+
+#    - name: stats of directory
+#      stat:
+#        path: /opt/{{ splunk_instance }}/
+#      register: results
+
     - name: ensure ownership and permissions for splunk directories
       file: 
         path: /opt/{{ splunk_instance }}/
@@ -24,10 +34,12 @@
         group: splunk
         mode: 0755
         recurse: yes
+      when: find.gid == '0'
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
       ignore_errors: yes
+
 
 #### testing ######
 #    - name: stats of directory
