@@ -45,13 +45,35 @@
     
     - name: ensure ownership and permissions for splunk directories
       file: 
-        path: /opt/{{ splunk_instance }}/
+        path: /opt/{{ splunk_instance }}/{{ item }}
         state: directory
         owner: splunk
         group: splunk
         mode: 0755
         recurse: yes
       when: results.stat.gr_name != 'splunk'
+      with_items:
+        - 
+        - etc/
+        - etc/apps/
+        - etc/apps/alert_logevent
+        - etc/apps/alert_webhook
+        - etc/apps/appsbrowser
+        - etc/apps/framework
+        - etc/apps/gettingstarted
+        - etc/apps/introspection_generator_addon
+        - etc/apps/launcher
+        - etc/apps/learned
+        - etc/apps/legacy
+        - etc/apps/sample_app
+        - etc/apps/search
+        - etc/apps/splunk_archiver
+        - etc/apps/SplunkForwarder
+        - etc/apps/splunk_httpinput
+        - etc/apps/splunk_instrumentation
+        - etc/apps/SplunkLightForwarder
+        - etc/apps/splunk_monitoring_console
+        - etc/apps/user-prefs
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
