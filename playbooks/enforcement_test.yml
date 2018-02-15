@@ -20,6 +20,8 @@
       stat:
         path: /opt/{{ splunk_instance }}/
       register: path
+
+    - name: creating fail message
       fail:
         msg: "whoops! path ownership is not splunk"
     
