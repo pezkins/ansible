@@ -34,7 +34,7 @@
         group: splunk
         mode: 0755
         recurse: yes
-      when: find.gid == '0'
+      when: gid == '0'
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
