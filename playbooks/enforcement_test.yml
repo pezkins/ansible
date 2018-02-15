@@ -18,7 +18,7 @@
 
     - name: stats of directory
       stat:
-        path: /opt/{{ splunk_instance }}/
+        path: /opt/{{ splunk_instance }}/*
         get_attributes: yes
       register: results
     
