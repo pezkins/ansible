@@ -1,5 +1,5 @@
 ---
-- name: installing splunk
+- name: testing file tree
   hosts:
     - deployment_servers
   connection: ssh
