@@ -16,15 +16,15 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
-#    - name: stats of directory
-#      stat:
-#        path: /opt/{{ splunk_instance }}/
-#      register: path
+    - name: stats of directory
+      stat:
+        path: /opt/{{ splunk_instance }}/
+      register: path
     
     - name: ensure ownership and permissions for splunk directories
       file: 
         path: /opt/{{ splunk_instance }}/
-        state: touch
+        state: directory
         owner: splunk
         group: splunk
         mode: 0755
