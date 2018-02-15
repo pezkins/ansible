@@ -16,9 +16,6 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
-    - name:
-      xattr:
-        path: /opt/{{ splunk_instance }}
 #    - name: stats of directory
 #      stat:
 #        path: /opt/{{ splunk_instance }}/
@@ -32,6 +29,7 @@
         group: splunk
         mode: 0755
         recurse: yes
+      when: group != 'splunk'
 #      when: path.stat.pw_name = 'splunk'
 
     - name: enable boot-start splunk service
