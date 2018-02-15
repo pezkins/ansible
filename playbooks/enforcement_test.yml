@@ -20,10 +20,6 @@
       stat:
         path: /opt/{{ splunk_instance }}/
       register: path
-
-    - name: creating fail message
-      fail:
-        msg: "whoops! path ownership is not splunk"
     
     - name: ensure ownership and permissions for splunk directories
       file: 
@@ -33,7 +29,7 @@
         group: splunk
         mode: 0755
         recurse: yes
-      when: path.stat.gr_name != 'splunk'
+      when: path.stat.pw_name!='splunk'
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
