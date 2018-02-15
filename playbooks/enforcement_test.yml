@@ -18,40 +18,62 @@
 
     - name: stats of directory
       stat:
-        path: /opt/{{ splunk_instance }}/
-      register: results
-#      with_items:
-#        - 
-#        - etc/
-#       - etc/apps/
-#        - etc/apps/alert_logevent
-#        - etc/apps/alert_webhook
-#        - etc/apps/appsbrowser
-#        - etc/apps/framework
-#        - etc/apps/gettingstarted
-#        - etc/apps/introspection_generator_addon
-#        - etc/apps/launcher
-#        - etc/apps/learned
-#        - etc/apps/legacy
-#        - etc/apps/sample_app
-#        - etc/apps/search
-#        - etc/apps/splunk_archiver
-#        - etc/apps/SplunkForwarder
-#        - etc/apps/splunk_httpinput
-#        - etc/apps/splunk_instrumentation
-#        - etc/apps/SplunkLightForwarder
-#        - etc/apps/splunk_monitoring_console
-#        - etc/apps/user-prefs
+        path: /opt/{ splunk_instance }/{{ item.directory }}
+      register: {{ item.results }}
+      with_items:
+        - { results: '1', directory: ''}
+        - { results: '2', directory: 'etc/' }
+        - { results: '3', directory: 'etc/apps/' }
+        - { results: '4', directory: 'etc/apps/alert_logevent' }
+        - { results: '5', directory: 'etc/apps/alert_webhook' }
+        - { results: '6', directory: 'etc/apps/appsbrowser' }
+        - { results: '7', directory: 'etc/apps/framework' }
+        - { results: '8', directory: 'etc/apps/gettingstarted' }
+        - { results: '9', directory: 'etc/apps/introspection_generator_addon' }
+        - { results: '10', directory: 'etc/apps/launcher' }
+        - { results: '11', directory: 'etc/apps/learned' }
+        - { results: '12', directory: 'etc/apps/legacy' }
+        - { results: '13', directory: 'etc/apps/sample_app' }
+        - { results: '14', directory: 'etc/apps/search' }
+        - { results: '15', directory: 'etc/apps/splunk_archiver' }
+        - { results: '16', directory: 'etc/apps/SplunkForwarder' }
+        - { results: '17', directory: 'etc/apps/splunk_httpinput' }
+        - { results: '18', directory: 'etc/apps/splunk_instrumentation' }
+        - { results: '19', directory: 'etc/apps/SplunkLightForwarder' }
+        - { results: '20', directory: 'etc/apps/splunk_monitoring_console' }
+        - { results: '21', directory: 'etc/apps/user-prefs' }
     
     - name: ensure ownership and permissions for splunk directories
       file: 
-        path: /opt/{{ splunk_instance }}/
+        path: /opt/{ splunk_instance }/
         state: directory
         owner: splunk
         group: splunk
         mode: 0755
         recurse: yes
-      when: results.stat.gr_name != 'splunk'
+      when: '{{ item }}'.stat.gr_name != 'splunk'
+      with_items:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 13
+        - 14
+        - 15
+        - 16
+        - 17
+        - 18
+        - 19
+        - 20
+        - 21
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
@@ -61,4 +83,4 @@
 
 #
 #    - name: changeing logfile to dynamically add date and hostname
-#      command: mv /var/log/ansible/ansiblelog.log /var/log/ansible/ansible_{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S')}}.log
+#      command: mv /var/log/ansible/ansiblelog.log /var/log/ansible/ansible_{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S')}.log
