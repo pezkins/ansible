@@ -27,9 +27,10 @@
         state: directory
         owner: splunk
         group: splunk
+        gather_facts: yes
         mode: 0755
         recurse: yes
-      when: group != 'splunk'
+#      when: group != 'splunk'
 #      when: path.stat.pw_name = 'splunk'
 
     - name: enable boot-start splunk service
