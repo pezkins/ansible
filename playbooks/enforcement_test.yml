@@ -19,7 +19,7 @@
     - name: stats of directory
       stat:
         path: /opt/{ splunk_instance }/{{ item.directory }}
-      register: {{ item.results }}
+      register: "{{ item.results }}"
       with_items:
         - { results: '1', directory: ''}
         - { results: '2', directory: 'etc/' }
@@ -51,7 +51,7 @@
         group: splunk
         mode: 0755
         recurse: yes
-      when: '{{ item }}'.stat.gr_name != 'splunk'
+      when: "{{ item }}".stat.gr_name != 'splunk'
       with_items:
         - 1
         - 2
