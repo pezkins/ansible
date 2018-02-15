@@ -16,10 +16,13 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
-    - name: stats of directory
-      stat:
-        path: /opt/{{ splunk_instance }}/
-      register: path
+    - name:
+      xattr:
+        path: /opt/{{ splunk_instance }}
+#    - name: stats of directory
+#      stat:
+#        path: /opt/{{ splunk_instance }}/
+#      register: path
     
     - name: ensure ownership and permissions for splunk directories
       file: 
@@ -29,7 +32,7 @@
         group: splunk
         mode: 0755
         recurse: yes
-      when: path.stat.pw_name == 'splunk'
+#      when: path.stat.pw_name = 'splunk'
 
     - name: enable boot-start splunk service
       command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
