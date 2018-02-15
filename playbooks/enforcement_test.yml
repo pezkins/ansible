@@ -19,7 +19,6 @@
     - name: stats of directory
       stat:
         path: /opt/{{ splunk_instance }}/*
-        get_attributes: yes
       register: results
     
     - name: ensure ownership and permissions for splunk directories
