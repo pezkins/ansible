@@ -8,7 +8,7 @@ LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_FILE=/etc/ansible/playbooks/enforcement_test.yml
 
 cd $DESTINATION_DIR
-ansible-playbook $PLAYBOOK_FILE --check ## >> $LOGFILE
+ansible-playbook $PLAYBOOK_FILE --syntax-check ## >> $LOGFILE
 
 if [ $? -eq 0 ]
 then
