@@ -12,9 +12,7 @@
     dest: /etc/parallel-20180122.tar.bz2
 
 - name: unpackage bizp2
-  unarchive: 
-    src: /etc/parallel-20180122.tar.bz2
-    dest: /etc/
+  command: "bzip2 -dc /etc/parallel-20180122.tar.bz2"
 
 - name: unpackage tar
   unarchive: 
