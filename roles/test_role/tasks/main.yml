@@ -15,7 +15,9 @@
   command: "bzip2 -dc /etc/parallel-20180122.tar.bz2"
 
 - name: unpackage tar
-  command: "tar -xvf /etc/parallel-20180122.tar" 
+  unarchive: 
+    src: /etc/parallel-20180122.tar
+    dest: /etc/ 
 
 - name: changing directory to /etc/
   command: "cd /etc/parallel-20180122"
