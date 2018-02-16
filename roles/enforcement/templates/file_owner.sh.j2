@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE_OWNER=`stat -c "%G:%U" . > list`
+FILE_OWNER=`stat -c "%U" * > list`
 
 cat list | parallel 'cat <<EOF
 {
