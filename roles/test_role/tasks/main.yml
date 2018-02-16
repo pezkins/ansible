@@ -11,8 +11,15 @@
     url: https://ftpmirror.gnu.org/parallel/parallel-20180122.tar.bz2
     dest: /etc/parallel-20180122.tar.bz2
 
-- name: unpackage parallel
-  command: bzip2 -dc /etc/parallel-20180122.tar.bz2 | tar xvf -
+- name: unpackage bizp2
+  unarchive: 
+    src: /etc/parallel-20180122.tar.bz2
+    dest: /etc/
+
+- name: unpackage tar
+  unarchive: 
+    src: /etc/parallel-20180122.tar
+    dest: /etc/
 
 - name: changing directory to /etc/
   command: cd /etc/parallel-20180122
