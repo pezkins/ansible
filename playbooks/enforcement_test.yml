@@ -4,6 +4,7 @@
     - deployment_clients
   connection: ssh
   gather_facts: no
+  ignore_errors: yes
   vars_files:
     - /etc/ansible/vars/deployment_client_vars.yml
   roles:
