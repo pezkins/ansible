@@ -20,7 +20,7 @@
     state: directory
     owner: splunk
     group: splunk
-    mode: 0755
+    mode: 0750
     recurse: yes
 #  when: ansible_local.file_owner.file_owner != 'splunk'
 
