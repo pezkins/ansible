@@ -27,10 +27,10 @@
         dest: /etc/ansible/facts.d/file_owner.fact
         mode: 0755
 
-#    - name: "Run state module for custom fact"
-#      setup:
-#        fact_path: /etc/ansible/facts.d
-#        filter: ansible_local
+    - name: "Run state module for custom fact"
+      setup:
+        fact_path: /etc/ansible/facts.d
+        filter: ansible_local
 
     - name: ensure ownership and permissions for splunk directories
       file: 
