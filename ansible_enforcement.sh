@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #### setting variables ####
-PLAYBOOK=$1
-TOGGLE_CHECK=$2
+#PLAYBOOK=$2
+TOGGLE_CHECK=$1
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
-PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
-
+PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
+#PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
 
 cd $DESTINATION_DIR
 ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
