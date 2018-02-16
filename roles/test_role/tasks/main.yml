@@ -1,9 +1,22 @@
-- name: testing our file tree
-  find:
-    paths: /opt/splunk/
-    recurse: yes
+- name: install wget and bzip2
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - wget
+    - bzip2
 
+- name: install parallel
+  get_url:
+    url: https://ftpmirror.gnu.org/parallel/parallel-20180122.tar.bz2
+    dest: /etc/parallel-20180122.tar.bz2
 
+- name: unpackage parallel
+  command: {{ item }}
+  with_items:
+    - bzip2 -dc parallel-20180122.tar.bz2 | tar xvf -
+    - cd /etc/parallel-20180122
+    - ./configure && make && sudo make install
 
 #- name: create directory tree
 #  file: 
