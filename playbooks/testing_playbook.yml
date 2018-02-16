@@ -1,7 +1,7 @@
 ---
 - name: testing file tree
   hosts:
-    - deployment_servers
+    - deployment_clients
   connection: ssh
   gather_facts: no
   roles:
