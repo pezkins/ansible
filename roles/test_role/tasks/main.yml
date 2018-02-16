@@ -12,13 +12,13 @@
     dest: /etc/parallel-20180122.tar.bz2
 
 - name: unpackage parallel
-  command: '{{ item }}'
-  with_items:
-    - bzip2 -dc /etc/parallel-20180122.tar.bz2 | tar xvf -
-    - cd /etc/parallel-20180122
-    - ./configure
-    - make
-    - make install
+  command: bzip2 -dc /etc/parallel-20180122.tar.bz2 | tar xvf -
+
+- name: changing directory to /etc/
+  command: cd /etc/parallel-20180122
+
+- name: unpackage parallel
+  command: "./configure && make && sudo make install"
 
 #- name: create directory tree
 #  file: 
