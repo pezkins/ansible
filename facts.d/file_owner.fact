@@ -3,3 +3,5 @@
 FILE_OWNER=`stat -c "%G:%U" * > list`
 
 cat list | parallel 'echo "{\"file_owner\" : \"${FILE_OWNER}\"}"'
+
+### comment
