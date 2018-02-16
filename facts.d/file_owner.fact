@@ -1,11 +1,5 @@
 #!/bin/bash
 
-FILE_OWNER=`stat -c "%G:%U" *`
+FILE_OWNER=`stat -c "%G:%U" * > list`
 
-####cat <<EOF
-####{
-####    "file_owner" : "$FILE_OWNER"
-####}
-####EOF
-#### making a change
-echo "{\"file_owner\" : \"${FILE_OWNER}\"}"
+cat list | parallel 'echo "{\"file_owner\" : \"${FILE_OWNER}\"}"'
