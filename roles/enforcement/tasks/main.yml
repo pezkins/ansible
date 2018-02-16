@@ -1,0 +1,42 @@
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    state: "directory"
+
+- name: "Insert custom fact file"
+  template:
+    src: file_owner.sh.j2
+    dest: /etc/ansible/facts.d/file_owner.fact
+    mode: 0755
+
+- name: "reload ansible_local"
+  setup:
+    filter: ansible_local
+
+- name: ensure ownership and permissions for splunk directories
+  file: 
+    path: /opt/{{ splunk_instance }}/
+    state: directory
+    owner: splunk
+    group: splunk
+    mode: 0755
+    recurse: yes
+  when: ansible_local.file_owner.file_owner != 'splunk:splunk'
+
+- name: enable boot-start splunk service
+  command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
+  ignore_errors: yes
+
+
+#### testing ######
+
+#    - name: stats of directory
+#      stat:
+#        path: /opt/{{ splunk_instance }}/
+#      register: results
+#    
+
+#      when: results.stat.gr_name != 'splunk'
+
+#    - name: changeing logfile to dynamically add date and hostname
+#      command: mv /var/log/ansible/ansiblelog.log /var/log/ansible/ansible_{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S')}}.log
