@@ -1,17 +1,18 @@
-- name: "Create custom fact directory"
-  file:
-    path: "/etc/ansible/facts.d"
-    state: "directory"
+#### These tasks are for using the custom fact ####
+#- name: "Create custom fact directory"
+#  file:
+#    path: "/etc/ansible/facts.d"
+#    state: "directory"
 
-- name: "Insert custom fact file"
-  template:
-    src: file_owner.sh.j2
-    dest: /etc/ansible/facts.d/file_owner.fact
-    mode: 0755
+#- name: "Insert custom fact file"
+#  template:
+#    src: file_owner.sh.j2
+#    dest: /etc/ansible/facts.d/file_owner.fact
+#    mode: 0755
 
-- name: "reload ansible_local"
-  setup:
-    filter: ansible_local
+#- name: "reload ansible_local"
+#  setup:
+#    filter: ansible_local
 
 - name: ensure ownership and permissions for splunk directories
   file: 
@@ -21,12 +22,10 @@
     group: splunk
     mode: 0755
     recurse: yes
-  when: ansible_local.file_owner.file_owner != 'splunk'
+#  when: ansible_local.file_owner.file_owner != 'splunk'
 
 - name: enable boot-start splunk service
   command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
-  ignore_errors: yes
-
 
 #### testing ######
 
