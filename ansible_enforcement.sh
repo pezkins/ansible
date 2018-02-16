@@ -2,17 +2,29 @@
 
 #### setting variables ####
 
-PLAYBOOK_FILE="enforcement_test.yml"
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
-PLAYBOOK_FILE=/etc/ansible/playbook
+PLAYBOOK_FILE=/etc/ansible/playbooks/enforcement_test.yml
 
-echo "Running... " >> $LOGFILE
+cd $DESTINATION_DIR
+ansible-playbook $PLAYBOOK_FILE --check >> $LOGFILE
+
+if [ $? -eq 0 ]
+then
+  echo "Check completed without error running full command" >> $LOGFILE
 cd $DESTINATION_DIR
 ansible-playbook $PLAYBOOK_FILE >> $LOGFILE
-SORTIDA=$?
-echo OK >> $LOGFILE
+
+else
+  echo "Check Failed please review ansible syntax" >> $LOGFILE
+fi
+
+#echo "Running... " >> $LOGFILE
+#cd $DESTINATION_DIR
+#ansible-playbook $PLAYBOOK_FILE >> $LOGFILE
+#SORTIDA=$?
+#echo OK >> $LOGFILE
 
 #!
 #### ansible command run ####
