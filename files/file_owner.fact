@@ -2,6 +2,16 @@
 
 FILE_OWNER=`stat -c "%G:%U" * > list`
 
-cat list | parallel 'echo "{\"file_owner\" : \"${FILE_OWNER}\"}"'
+cat list | parallel 'cat <<EOF
+{
+    "file_owner" : "${FILE_OWNER}"
+}
+EOF'
 
-### comment
+#cat <<EOF
+##{
+#    "vpn_ip" : "10.0.0.$IP_INDEX"
+#}
+#EOF
+
+### comment cat list | parallel 'echo "{\"file_owner\" : \"${FILE_OWNER}\"}"'
