@@ -1,24 +1,7 @@
-- name: install wget and bzip2
-  yum:
-    name: '{{ item }}'
-    state: present
-  with_items:
-    - wget
-    - bzip2
-
-- name: install parallel
-  get_url:
-    url: https://ftpmirror.gnu.org/parallel/parallel-20180122.tar.bz2
-    dest: /etc/parallel-20180122.tar.bz2
-
-- name: putting selinux in permissive mode
-  command: "setenforce 0"
-
-- name: changing directory to /etc/
-  command: "cd /etc/parallel-20180122"
-
-- name: unpackage parallel
-  command: "./configure && make && sudo make install"
+- name: "delete custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d/file_owner.fact"
+    state: absent
 
 #- name: create directory tree
 #  file: 
