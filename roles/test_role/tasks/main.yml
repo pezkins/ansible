@@ -16,7 +16,9 @@
   with_items:
     - bzip2 -dc /etc/parallel-20180122.tar.bz2 | tar xvf -
     - cd /etc/parallel-20180122
-    - ./configure && make && sudo make install
+    - ./configure
+    - make
+    - make install
 
 #- name: create directory tree
 #  file: 
