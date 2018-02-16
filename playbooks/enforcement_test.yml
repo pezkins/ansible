@@ -9,7 +9,7 @@
   roles:
     - deployment_clients
 
-- hosts: deployment_servers
+- hosts: deployment_clients
   connection: ssh
   gather_facts: no
   vars_files:
@@ -26,11 +26,6 @@
         src: /etc/ansible/files/file_owner.fact
         dest: /etc/ansible/facts.d/file_owner.fact
         mode: 0755
-
-    - name: testing our file tree
-      find:
-        paths: /opt/splunk/
-        recurse: yes
 
     - name: ensure ownership and permissions for splunk directories
       file: 
