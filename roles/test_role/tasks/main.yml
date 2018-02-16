@@ -12,7 +12,7 @@
     dest: /etc/parallel-20180122.tar.bz2
 
 - name: unpackage parallel
-  command: {{ item }}
+  command: '{{ item }}'
   with_items:
     - bzip2 -dc parallel-20180122.tar.bz2 | tar xvf -
     - cd /etc/parallel-20180122
