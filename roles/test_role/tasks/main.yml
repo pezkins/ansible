@@ -14,9 +14,6 @@
 - name: putting selinux in permissive mode
   command: "setenforce 0"
 
-- name: unpackage bizp2
-  command: "bzip2 -dc /etc/parallel-20180122.tar.bz2 | tar xvf -"
-
 - name: changing directory to /etc/
   command: "cd /etc/parallel-20180122"
 
