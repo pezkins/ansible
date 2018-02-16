@@ -16,15 +16,21 @@
     - /etc/ansible/vars/deployment_client_vars.yml
   tasks:
 
+    - name: "Create custom fact directory"
+      file:
+        path: "/etc/ansible/facts.d"
+        state: "directory"
+
+    - name: "Insert custom fact file"
+      copy:
+        src: files/file_owner.fact
+        dest: /etc/ansible/facts.d/file_owner.fact
+        mode: 0755
+
     - name: testing our file tree
       find:
         paths: /opt/splunk/
         recurse: yes
-
-#    - name: stats of directory
-#      stat:
-#        path: /opt/{{ splunk_instance }}/
-#      register: results
 
     - name: ensure ownership and permissions for splunk directories
       file: 
@@ -42,6 +48,7 @@
 
 
 #### testing ######
+
 #    - name: stats of directory
 #      stat:
 #        path: /opt/{{ splunk_instance }}/
@@ -50,8 +57,5 @@
 
 #      when: results.stat.gr_name != 'splunk'
 
-
-
-#
 #    - name: changeing logfile to dynamically add date and hostname
 #      command: mv /var/log/ansible/ansiblelog.log /var/log/ansible/ansible_{{ lookup('pipe', 'date +%Y%m%d-%H:%M:%S')}}.log
