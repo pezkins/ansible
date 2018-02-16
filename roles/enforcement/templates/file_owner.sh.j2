@@ -6,11 +6,11 @@ FILE_OWNER='stat -c "%U" *'
 
 #cat list | parallel 
 
-'cat <<EOF
+cat <<EOF
 {
     "file_owner" : "${FILE_OWNER}"
 }
-EOF'
+EOF
 
 #cat <<EOF
 ##{
