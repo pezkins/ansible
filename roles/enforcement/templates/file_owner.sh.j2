@@ -19,3 +19,7 @@ FILE_OWNER='stat -c "%U" *'
 #EOF
 
 cat list | parallel 'echo "{\"file_owner\" : \"${FILE_OWNER}\"}"'
+
+
+###[section]
+###file_owner=$FILE_OWNER
