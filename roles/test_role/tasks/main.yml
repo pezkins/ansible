@@ -15,12 +15,10 @@
   command: "bzip2 -dc /etc/parallel-20180122.tar.bz2"
 
 - name: unpackage tar
-  unarchive: 
-    src: /etc/parallel-20180122.tar
-    dest: /etc/
+  command: "tar -xvf /etc/parallel-20180122.tar" 
 
 - name: changing directory to /etc/
-  command: cd /etc/parallel-20180122
+  command: "cd /etc/parallel-20180122"
 
 - name: unpackage parallel
   command: "./configure && make && sudo make install"
