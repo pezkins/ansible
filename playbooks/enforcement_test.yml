@@ -23,7 +23,7 @@
 
     - name: "Insert custom fact file"
       copy:
-        src: files/file_owner.fact
+        src: /etc/ansible/files/file_owner.fact
         dest: /etc/ansible/facts.d/file_owner.fact
         mode: 0755
 
