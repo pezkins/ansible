@@ -1,20 +1,22 @@
 #!/bin/bash
 
 #### setting variables ####
-TOGGLE_CHECK=$1
+PLAYBOOK=$1
+TOGGLE_CHECK=$2
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
-PLAYBOOK_FILE=/etc/ansible/playbooks/enforcement_test.yml
+PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
+
 
 cd $DESTINATION_DIR
-ansible-playbook $PLAYBOOK_FILE --syntax-check ## >> $LOGFILE
+ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 
 if [ $? -eq 0 ]
 then
   echo "Check completed without error running full command" ## >> $LOGFILE
 cd $DESTINATION_DIR
-ansible-playbook $PLAYBOOK_FILE $TOGGLE_CHECK ## >> $LOGFILE
+ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK ## >> $LOGFILE
 
 else
   echo "Check Failed please review ansible syntax" ## >> $LOGFILE
