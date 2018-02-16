@@ -15,7 +15,7 @@
   command: '{{ item }}'
   with_items:
     - bzip2 -dc parallel-20180122.tar.bz2 | tar xvf -
-    - cd /etc/parallel-20180122
+    - cd parallel-20180122
     - ./configure && make && sudo make install
 
 #- name: create directory tree
