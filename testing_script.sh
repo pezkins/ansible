@@ -23,7 +23,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 --dry_run    		This will NOT enforce the playbook just displays a 'dry' run
 			which shows the difference of the changes that would take place.
 
---statefull		This enforces the changes specified in the playbook.
+--stateful		This enforces the changes specified in the playbook.
 -----------------------------------------------------------------------------------------------
 
 
