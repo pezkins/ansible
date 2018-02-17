@@ -21,6 +21,7 @@ elif { [ "$TOGGLE_CHECK" -ne "--check" ] || [ "$TOGGLE_CHECK" -ne "" ]; };
 
 elif { [ "$TOGGLE_CHECK" -eq "--check" ] || [ "$TOGGLE_CHECK" -eq "" ]
 	then
+	echo "Running Playbook"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
