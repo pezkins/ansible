@@ -24,7 +24,7 @@ NULL			Not typing any argument will enforce the playbook
 #!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 #"
 
-elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" -eq 0 ]; };
+elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" = "" ]; };
 	then
 	echo "Running Playbook"
 	cd $DESTINATION_DIR
