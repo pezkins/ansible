@@ -18,13 +18,13 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 NULL			Not typing any argument will enforce the playbook
 "
 
-elif { [ "$TOGGLE_CHECK" != "--check" ] || [ -z $TOGGLE_CHECK = false ]; };
+elif { [ "$TOGGLE_CHECK" != "--check" ] || [ -z $TOGGLE_CHECK ]; };
 	then
 	echo "
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 "
 
-elif { [ "$TOGGLE_CHECK" = "--check" ] || [ -z $TOGGLE_CHECK = true ]; };
+elif { [ "$TOGGLE_CHECK" = "--check" ] || [ ! -z $TOGGLE_CHECK ]; };
 	then
 	echo "Running Playbook"
 	cd $DESTINATION_DIR
