@@ -12,13 +12,17 @@ PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
-	echo "
+	echo -e "\e[1;37m
+
+
 ---------------------------------------------------------------------------
 -h, --help		This will show you this message
 --check    		This will NOT enforce the playbook just displays a dry run
 NULL			Not typing any argument will enforce the playbook
 ---------------------------------------------------------------------------
-"
+
+
+\e[0m"
 
 #elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
 #	then
@@ -28,41 +32,57 @@ NULL			Not typing any argument will enforce the playbook
 
 elif [ "$TOGGLE_CHECK" = "--check" ];
 	then
-	echo "
+	echo -e "\e[1;32m	
 **************************************
 **************************************
 *** Running Playbook in check mode ***
 **************************************
 **************************************
-"
+\e[0m"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
 		then
-		echo "Check completed without error running full command" ## >> $LOGFILE
+		echo -e "\e[1;36m
+
+Check completed without error running full command
+
+\e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
 		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK --diff ## >> $LOGFILE
 	else
-	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
+	echo -e "\e[1;36m
+
+Check Failed please review ansible syntax
+
+\e[0m" ## >> $LOGFILE
 	fi
 elif [ "$TOGGLE_CHECK" = "" ];
 	then
-	echo "
+	echo -e "\e[1;32m
 **************************************
 **************************************
 ********* Running Playbook ***********
 **************************************
 **************************************
-"
+\e[0m"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
 		then
-		echo "Check completed without error running full command" ## >> $LOGFILE
+		echo -e "\e[1;36m
+
+Check completed without error running full command
+
+\e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
 		ansible-playbook $PLAYBOOK_PATH ## >> $LOGFILE
 	else
-	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
+	echo -e "\e[1;31m
+
+Check Failed please review ansible syntax
+
+\e[0m" ## >> $LOGFILE
 	fi
 elif [ "$TOGGLE_CHECK" != "--check" ];
 	then
