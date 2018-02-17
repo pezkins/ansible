@@ -18,11 +18,11 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 NULL			Not typing any argument will enforce the playbook
 "
 
-#elif { [ "$TOGGLE_CHECK" != "--check" ] || [ $TOGGLE_CHECK -ne 0 ]; };
-#	then
-#	echo "
-#!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
-#"
+elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
+	then
+	echo "
+!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+"
 
 elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" = "" ]; };
 	then
