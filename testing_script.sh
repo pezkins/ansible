@@ -10,7 +10,7 @@ LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 #PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
 
-if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
+if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
 	echo "
 -h, --help		This will show you this message
