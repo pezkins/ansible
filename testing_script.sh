@@ -27,6 +27,7 @@ elif [$TOGGLE_CHECK -eq "--check"] || [$TOGGLE_CHECK -eq ""]
 		echo "Check completed without error running full command" ## >> $LOGFILE
 		cd $DESTINATION_DIR
 		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK ## >> $LOGFILE
-else
-  echo "Check Failed please review ansible syntax" ## >> $LOGFILE
+	else
+	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
+	fi
 fi
