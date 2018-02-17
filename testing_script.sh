@@ -19,7 +19,7 @@ elif { [ "$TOGGLE_CHECK" -ne "--check" ] || [ "$TOGGLE_CHECK" -ne "" ]; };
 	then
 	echo "Only argument allowed is --check or no argument"
 
-elif { [ "$TOGGLE_CHECK" -eq "--check" ] || [ "$TOGGLE_CHECK" -eq "" ]
+elif { [ "$TOGGLE_CHECK" -eq "--check" ] || [ "$TOGGLE_CHECK" -eq "" ]; };
 	then
 	echo "Running Playbook"
 	cd $DESTINATION_DIR
