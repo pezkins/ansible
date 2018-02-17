@@ -20,7 +20,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 
 -h, --help		This will show you this message. 
 --check    		This will NOT enforce the playbook just displays a 'dry' run
-				and shows the difference of the changes that would take place.
+			and shows the difference of the changes that would take place.
 --statefull		This enforces the changes specified in the playbook.
 -----------------------------------------------------------------------------------------------
 
