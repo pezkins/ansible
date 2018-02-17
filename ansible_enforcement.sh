@@ -13,17 +13,17 @@ PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 if [$TOGGLE_CHECK -ne "--check"]
 	then
 	echo "Only argument allowed is --check"
-elif [ $TOGGLE_CHECK "-eq -h" ]
+elif [ $TOGGLE_CHECK -eq "-h" ]
 	then
 	echo "Only argument allowed is --check"
-elif [ $TOGGLE_CHECK -eq --help ]
+elif [ $TOGGLE_CHECK -eq "--help" ]
 	then
 	echo "Only argument allowed is --check"
-elif [ $TOGGLE_CHECK -eq --check ]
+elif [ $TOGGLE_CHECK -eq "--check" ]
 	then
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
-elif [ $? -eq 0 ]
+elif [ $? -eq "0" ]
 	then
 	echo "Check completed without error running full command" ## >> $LOGFILE
 	cd $DESTINATION_DIR
