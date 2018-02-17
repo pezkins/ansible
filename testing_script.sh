@@ -18,9 +18,11 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 ##### THIS SCRIPT WILL RUN THE PLAYBOOK IN TWO MODES ######
 
 
--h, --help		This will show you this message. 
+-h, --help		This will show you this message.
+
 --check    		This will NOT enforce the playbook just displays a 'dry' run
 			and shows the difference of the changes that would take place.
+
 --statefull		This enforces the changes specified in the playbook.
 -----------------------------------------------------------------------------------------------
 
