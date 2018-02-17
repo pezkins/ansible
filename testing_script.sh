@@ -30,4 +30,3 @@ elif [$TOGGLE_CHECK -eq "--check"] || [$TOGGLE_CHECK -eq ""]
 else
   echo "Check Failed please review ansible syntax" ## >> $LOGFILE
 fi
-
