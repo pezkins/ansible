@@ -55,13 +55,11 @@ elif [ "$TOGGLE_CHECK" != "--check" ];
 	echo "
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 "
-	fi
 elif [ "$TOGGLE_CHECK" != "" ];
 	then
 	echo "
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 "
-	fi
 fi
 
 ### --diff			when changing (small) files and templates, show the differences in those files
