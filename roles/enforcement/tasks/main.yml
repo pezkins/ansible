@@ -22,10 +22,14 @@
     group: splunk
     mode: 0750
     recurse: yes
+    check_mode: yes
 #  when: ansible_local.file_owner.file_owner != 'splunk'
 
 - name: enable boot-start splunk service
   command: "/opt/splunk/bin/splunk enable boot-start -user splunk"
+  check_mode: yes
+
+##### make a conditional if init is wrong #####
 
 #### testing ######
 

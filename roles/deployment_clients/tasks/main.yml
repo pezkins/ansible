@@ -6,6 +6,7 @@
     group: splunk
     mode: 0755
     recurse: yes
+    check_mode: yes
   with_items:
     - cdm_all_deploymentclient/local/
     - cdm_all_deploymentclient/metadata/
@@ -17,6 +18,7 @@
     group: splunk
     owner: splunk
     mode: 0755
+    check_mode: yes
   with_fileglob:
     - /etc/ansible/roles/deployment_clients/templates/cdm_all_deploymentclient/local/*
 
@@ -27,5 +29,6 @@
     group: splunk
     owner: splunk
     mode: 0755
+    check_mode: yes
   with_fileglob:
     - /etc/ansible/roles/deployment_clients/templates/cdm_all_deploymentclient/metadata/*
