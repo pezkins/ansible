@@ -15,7 +15,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	echo "
 -h --help		This will show you this message
 --check    		This will NOT enforce the playbook just displays a dry run
-no-argument		This WILL enforce the playbook
+NULL			Not typing any argument will enforce the playbook
 "
 
 elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" -ne 0 ]; };
