@@ -3,6 +3,7 @@
 #### setting variables ####
 #PLAYBOOK=$2
 TOGGLE_CHECK=$1
+
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
