@@ -27,6 +27,9 @@ NULL			Not typing any argument will enforce the playbook
 elif [ "$TOGGLE_CHECK" = "--check" ];
 	then
 	echo "Running Playbook in check mode"
+elif [ "$TOGGLE_CHECK" = "" ];
+	then
+	echo "Running Playbook"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
@@ -36,21 +39,7 @@ elif [ "$TOGGLE_CHECK" = "--check" ];
 		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK ## >> $LOGFILE
 	else
 	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
-
-elif [ "$TOGGLE_CHECK" = ""];
-	then
-	echo "Running Playbook"
-	cd $DESTINATION_DIR
-	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
-	if [ $? -eq 0 ]
-		then
-		echo "Check completed without error running full command" ## >> $LOGFILE
-		cd $DESTINATION_DIR
-		ansible-playbook $PLAYBOOK_PATH ## >> $LOGFILE
-	else
-	echo
-	"Check Failed please review ansible syntax" ## >> $LOGFILE
-fi
+	fi
 fi
 
 ### --diff			when changing (small) files and templates, show the differences in those files
