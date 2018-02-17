@@ -15,7 +15,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 
 
 -----------------------------------------------------------------------------------------------
-##### THIS SCRIPT WILL RUN THE PLAYBOOK IN TWO MODES ######
+############### THIS SCRIPT WILL RUN THE PLAYBOOK IN TWO MODES ###############
 
 
 -h, --help		This will show you this message.
