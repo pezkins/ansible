@@ -66,13 +66,13 @@ elif [ "$TOGGLE_CHECK" = "" ];
 	fi
 elif [ "$TOGGLE_CHECK" != "--check" ];
 	then
-	echo -e "
+	echo -e "\e[1;31m
 
 
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 
 
-"
+\e[0m"
 elif [ "$TOGGLE_CHECK" != "" ];
 	then
 	echo "\e[1;31m
