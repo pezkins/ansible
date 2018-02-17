@@ -17,7 +17,7 @@ if [ $? -eq 0 ]
 then
   echo "Check completed without error running full command" ## >> $LOGFILE
 
-elif [ $TOGGLE_CHECK -eq "-h" ] || [ $TOGGLE_CHECK -eq "--help" ] 
+elif [ $TOGGLE_CHECK -eq "-h" ] || [ $TOGGLE_CHECK -eq "--help" ] || ([$TOGGLE_CHECK -ne "--check"] || [$TOGGLE_CHECK -ne ""])
 	then
 	echo "Only argument allowed is --check or no argument"
 
@@ -29,4 +29,4 @@ else
 fi
 
 
-####|| ([$TOGGLE_CHECK -ne "--check"] || [$TOGGLE_CHECK -ne ""])
+
