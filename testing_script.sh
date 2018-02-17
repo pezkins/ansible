@@ -10,15 +10,15 @@ LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 #PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
 
-if [[ ($TOGGLE_CHECK -eq "-h" || $TOGGLE_CHECK -eq "--help") ]]
+if [[ ("$TOGGLE_CHECK" -eq "-h" || "$TOGGLE_CHECK" -eq "--help") ]]
 	then
 	echo "Only argument allowed is --check or no argument"
 
-elif [[ ($TOGGLE_CHECK -ne "--check" || $TOGGLE_CHECK -ne "") ]]
+elif [[ ("$TOGGLE_CHECK" -ne "--check" || "$TOGGLE_CHECK" -ne "") ]]
 	then
 	echo "Only argument allowed is --check or no argument"
 
-elif [[ ($TOGGLE_CHECK -eq "--check" || $TOGGLE_CHECK -eq 0) ]]
+elif [[ ("$TOGGLE_CHECK" -eq "--check" || "$TOGGLE_CHECK" -eq 0) ]]
 	then
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
