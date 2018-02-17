@@ -33,7 +33,7 @@ elif [ "$TOGGLE_CHECK" = "--check" ];
 		then
 		echo "Check completed without error running full command" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK ## >> $LOGFILE
+		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK --diff ## >> $LOGFILE
 	else
 	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
 	fi
@@ -49,6 +49,18 @@ elif [ "$TOGGLE_CHECK" = "" ];
 		ansible-playbook $PLAYBOOK_PATH ## >> $LOGFILE
 	else
 	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
+	fi
+elif [ "$TOGGLE_CHECK" != "--check" ];
+	then
+	echo "
+!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+"
+	fi
+elif [ "$TOGGLE_CHECK" != "" ];
+	then
+	echo "
+!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+"
 	fi
 fi
 
