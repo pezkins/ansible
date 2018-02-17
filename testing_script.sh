@@ -21,7 +21,7 @@ no-argument		This WILL enforce the playbook
 elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" -ne 0 ]; };
 	then
 	echo "
-!!!!!!!!!!Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
 "
 
 elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" -eq 0 ]; };
