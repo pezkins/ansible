@@ -10,7 +10,7 @@ LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 #PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
 
-if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
+if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
 	then
 	echo "
 -h, --help		This will show you this message
@@ -18,11 +18,11 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 NULL			Not typing any argument will enforce the playbook
 "
 
-elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
-	then
-	echo "
-!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
-"
+#elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
+#	then
+#	echo "
+#!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+#"
 
 elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" = "" ]; };
 	then
