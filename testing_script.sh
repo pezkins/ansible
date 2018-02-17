@@ -3,7 +3,6 @@
 #### setting variables ####
 #PLAYBOOK=$2
 TOGGLE_CHECK=$1
-
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
@@ -15,20 +14,17 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	echo -e "\e[1;37m
 
 
----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+##### THIS SCRIPT WILL RUN THE PLAYBOOK IN TWO MODES ######
+
+
 -h, --help		This will show you this message
 --check    		This will NOT enforce the playbook just displays a dry run
 NULL			Not typing any argument will enforce the playbook
----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
 
 
 \e[0m"
-
-#elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
-#	then
-#	echo "
-#!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
-#"
 
 elif [ "$TOGGLE_CHECK" = "--check" ];
 	then
@@ -97,3 +93,9 @@ fi
 
 ### --diff			when changing (small) files and templates, show the differences in those files
 ### DIFF_CHECK=$2
+
+#elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
+#	then
+#	echo "
+#!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+#"
