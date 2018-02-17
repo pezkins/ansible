@@ -73,15 +73,6 @@ elif [ "$TOGGLE_CHECK" != "--check" ];
 
 
 \e[0m"
-elif [ "$TOGGLE_CHECK" != "" ];
-	then
-	echo "\e[1;31m
-
-
-!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
-
-
-\e[0m"
 fi
 
 ### --diff			when changing (small) files and templates, show the differences in those files
