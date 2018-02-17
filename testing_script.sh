@@ -14,13 +14,15 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
 	echo "
 -h --help		This will show you this message
---check    		This NOT enforce the playbook just displays a dry run
+--check    		This will NOT enforce the playbook just displays a dry run
 no-argument		This WILL enforce the playbook
 "
 
 elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" -ne 0 ]; };
 	then
-	echo "Only argument allowed is --check or no argument"
+	echo "
+			!!!!!!!!!!Please use -h, --help to see a list of accept argument !!!!!!!!!!
+"
 
 elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" -eq 0 ]; };
 	then
@@ -36,3 +38,6 @@ elif { [ "$TOGGLE_CHECK" = "--check" ] || [ "$TOGGLE_CHECK" -eq 0 ]; };
 	echo "Check Failed please review ansible syntax" ## >> $LOGFILE
 	fi
 fi
+
+### --diff			when changing (small) files and templates, show the differences in those files
+### DIFF_CHECK=$2
