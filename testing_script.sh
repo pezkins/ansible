@@ -12,8 +12,11 @@ PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
-	echo "--check    This NOT enforce the playbook just displays a dry run
-	- no-argument    This WILL enforce the playbook"
+	echo "
+-h --help		This will show you this message
+--check    		This NOT enforce the playbook just displays a dry run
+no-argument		This WILL enforce the playbook
+"
 
 elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" -ne 0 ]; };
 	then
