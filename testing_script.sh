@@ -9,7 +9,7 @@ LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 #PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
 
-if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
+if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_CHECK" = "" ]; };
 	then
 	echo -e "\e[1;37m
 
@@ -21,7 +21,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 -h, --help		This will show you this message. 
 --check    		This will NOT enforce the playbook just displays a 'dry' run
 				and shows the difference of the changes that would take place.
-NULL			Not typing any argument will enforce the playbook.
+--statefull		This enforces the changes specified in the playbook.
 -----------------------------------------------------------------------------------------------
 
 
@@ -54,7 +54,7 @@ Check Failed please review ansible syntax
 
 \e[0m" ## >> $LOGFILE
 	fi
-elif [ "$TOGGLE_CHECK" = "" ];
+elif [ "$TOGGLE_CHECK" = "--stateful" ];
 	then
 	echo -e "\e[1;32m
 **************************************
