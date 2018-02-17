@@ -20,8 +20,8 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 
 -h, --help		This will show you this message.
 
---check    		This will NOT enforce the playbook just displays a 'dry' run
-			and shows the difference of the changes that would take place.
+--dry_run    		This will NOT enforce the playbook just displays a 'dry' run
+			which shows the difference of the changes that would take place.
 
 --statefull		This enforces the changes specified in the playbook.
 -----------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 
 \e[0m"
 
-elif [ "$TOGGLE_CHECK" = "--check" ];
+elif [ "$TOGGLE_CHECK" = "--dry_run" ];
 	then
 	echo -e "\e[1;32m	
 **************************************
@@ -48,7 +48,7 @@ Check completed without error running full command
 
 \e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ansible-playbook $PLAYBOOK_PATH $TOGGLE_CHECK --diff ## >> $LOGFILE
+		ansible-playbook $PLAYBOOK_PATH --check --diff ## >> $LOGFILE
 	else
 	echo -e "\e[1;36m
 
@@ -83,7 +83,7 @@ Check Failed please review ansible syntax
 
 \e[0m" ## >> $LOGFILE
 	fi
-elif [ "$TOGGLE_CHECK" != "--check" ];
+elif [ "$TOGGLE_CHECK" != "--dry_run" ];
 	then
 	echo -e "\e[1;31m
 
