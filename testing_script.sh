@@ -13,9 +13,11 @@ PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
 	echo "
+---------------------------------------------------------------------------
 -h, --help		This will show you this message
 --check    		This will NOT enforce the playbook just displays a dry run
 NULL			Not typing any argument will enforce the playbook
+---------------------------------------------------------------------------
 "
 
 #elif { [ "$TOGGLE_CHECK" != "--check" ] || [ "$TOGGLE_CHECK" != "" ]; };
@@ -26,7 +28,13 @@ NULL			Not typing any argument will enforce the playbook
 
 elif [ "$TOGGLE_CHECK" = "--check" ];
 	then
-	echo "Running Playbook in check mode"
+	echo "
+**************************************
+**************************************
+*** Running Playbook in check mode ***
+**************************************
+**************************************
+"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
@@ -39,7 +47,13 @@ elif [ "$TOGGLE_CHECK" = "--check" ];
 	fi
 elif [ "$TOGGLE_CHECK" = "" ];
 	then
-	echo "Running Playbook"
+	echo "
+**************************************
+**************************************
+********* Running Playbook ***********
+**************************************
+**************************************
+"
 	cd $DESTINATION_DIR
 	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
@@ -52,14 +66,22 @@ elif [ "$TOGGLE_CHECK" = "" ];
 	fi
 elif [ "$TOGGLE_CHECK" != "--check" ];
 	then
-	echo "
+	echo -e "
+
+
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+
+
 "
 elif [ "$TOGGLE_CHECK" != "" ];
 	then
-	echo "
+	echo "\e[1;31m
+
+
 !!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
-"
+
+
+\e[0m"
 fi
 
 ### --diff			when changing (small) files and templates, show the differences in those files
