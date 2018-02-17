@@ -13,7 +13,7 @@ PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ]; };
 	then
 	echo "
--h --help		This will show you this message
+-h, --help		This will show you this message
 --check    		This will NOT enforce the playbook just displays a dry run
 NULL			Not typing any argument will enforce the playbook
 "
