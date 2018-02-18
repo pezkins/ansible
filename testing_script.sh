@@ -48,7 +48,7 @@ Check completed without error running full command
 
 \e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --check --diff ## >> $LOGFILE
+		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --check --diff -v ## >> $LOGFILE
 	else
 	echo -e "\e[1;36m
 
