@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #### setting variables ####
-#PLAYBOOK=$2 
+PLAYBOOK=$2 
 TOGGLE_CHECK=$1
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
 PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
-#PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK.yml
+PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK
 
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_CHECK" = "" ]; };
 	then
@@ -16,14 +16,21 @@ if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_
 
 -----------------------------------------------------------------------------------------------
 ############### THIS SCRIPT WILL RUN THE PLAYBOOK IN TWO MODES ###############
+SYNTAX:			[script] [options] [playbook]
 
 
+OPTIONS:
 -h, --help		This will show you this message.
 
 --dry_run    		This will NOT enforce the playbook just displays a 'dry' run
 			which shows the difference of the changes that would take place.
 
 --stateful		This enforces the changes specified in the playbook.
+
+PLAYBOOK:
+
+[playbook]		Name of existing playbook in $ANSIBLE_HOME/playbooks/ directory.
+
 -----------------------------------------------------------------------------------------------
 
 
@@ -48,7 +55,7 @@ Check completed without error running full command
 
 \e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --check --diff -v ## >> $LOGFILE
+		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --check --diff ## >> $LOGFILE
 	else
 	echo -e "\e[1;36m
 
