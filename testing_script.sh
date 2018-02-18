@@ -48,7 +48,7 @@ Check completed without error running full command
 
 \e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ansible-playbook $PLAYBOOK_PATH --check --diff ## >> $LOGFILE
+		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --check --diff ## >> $LOGFILE
 	else
 	echo -e "\e[1;36m
 
@@ -66,7 +66,7 @@ elif [ "$TOGGLE_CHECK" = "--stateful" ];
 **************************************
 \e[0m"
 	cd $DESTINATION_DIR
-	ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
+	ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH --syntax-check ## >> $LOGFILE
 	if [ $? -eq 0 ]
 		then
 		echo -e "\e[1;36m
@@ -75,7 +75,7 @@ Check completed without error running full command
 
 \e[0m" ## >> $LOGFILE
 		cd $DESTINATION_DIR
-		ansible-playbook $PLAYBOOK_PATH ## >> $LOGFILE
+		ANSIBLE_NOCOWS=1 ansible-playbook $PLAYBOOK_PATH ## >> $LOGFILE
 	else
 	echo -e "\e[1;31m
 
