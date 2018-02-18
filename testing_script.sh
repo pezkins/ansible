@@ -6,7 +6,7 @@ TOGGLE_CHECK=$1
 SOURCE_DIR=/var/log/ansible
 DESTINATION_DIR=/etc/ansible
 LOGFILE=$SOURCE_DIR/ansible.log
-PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
+#PLAYBOOK_PATH=/etc/ansible/playbooks/enforcement_test.yml
 PLAYBOOK_PATH=/etc/ansible/playbooks/$PLAYBOOK
 
 if { [ "$TOGGLE_CHECK" = "-h" ] || [ "$TOGGLE_CHECK" = "--help" ] || [ "$TOGGLE_CHECK" = "" ]; };
@@ -95,7 +95,7 @@ elif [ "$TOGGLE_CHECK" != "--dry_run" ];
 	echo -e "\e[1;31m
 
 
-!!!!!!!!!! Please use -h, --help to see a list of accepted arguments !!!!!!!!!!
+!!!!!!!!!! Please use -h, --help to see a list of accepted arguments and options!!!!!!!!!!
 
 
 \e[0m"
